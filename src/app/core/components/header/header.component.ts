@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   template: `
     <header>
       <nav>
-        <div class="logo">Wizzer</div>
+        <a routerLink="/" class="logo">Wizzer</a>
         <div class="nav-links">
-          <a routerLink="/" class="active">Inicio</a>
           <a routerLink="/buscar">Buscar</a>
-          <a routerLink="/publicar">Publicar</a>
-          <a routerLink="/login">Iniciar Sesión</a>
+          <a routerLink="/reportar">Reportar</a>
+          <a routerLink="/auth/login">Iniciar Sesión</a>
         </div>
       </nav>
     </header>
@@ -25,8 +25,11 @@ import { RouterLink } from '@angular/router';
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       position: fixed;
       width: 100%;
-      top: 0;
+      top: 4px;
+      left: 0;
+      right: 0;
       z-index: 1000;
+      border-radius: 0 0 12px 12px;
     }
 
     nav {
@@ -42,25 +45,28 @@ import { RouterLink } from '@angular/router';
       font-size: 1.5rem;
       font-weight: bold;
       color: #1E40AF;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .logo:hover {
+      color: #3B82F6;
     }
 
     .nav-links {
       display: flex;
       gap: 1.5rem;
+      align-items: center;
     }
 
     .nav-links a {
       text-decoration: none;
       color: #1E40AF;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: color 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: #3B82F6;
-    }
-
-    .nav-links a.active {
       color: #3B82F6;
     }
 

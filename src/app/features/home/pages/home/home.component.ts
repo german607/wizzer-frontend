@@ -1,27 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
-import { PetCarouselComponent } from '../../components/pet-carousel/pet-carousel.component';
+import { PetCarouselComponent } from '../../../../core/components/pet-carousel/pet-carousel.component';
+import { SearchBarComponent } from '../../../../core/components/search-bar/search-bar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, PetCarouselComponent],
+  imports: [CommonModule, PetCarouselComponent, SearchBarComponent],
   template: `
-    <app-header></app-header>
-
     <main>
       <section class="hero">
         <div class="hero-content">
-          <h1>Encuentra a tu mascota perdida</h1>
+          <h1>Encuentra tu mascota perdida</h1>
           <p>La comunidad más grande para encontrar mascotas perdidas</p>
-          <div class="search-container">
-            <input type="text" placeholder="Buscar mascota...">
-            <button class="search-button">
-              <i class="fas fa-search"></i>
-              Buscar
-            </button>
-          </div>
+          <app-search-bar (search)="onSearch($event)"></app-search-bar>
         </div>
       </section>
 
@@ -71,21 +63,6 @@ import { PetCarouselComponent } from '../../components/pet-carousel/pet-carousel
           </div>
         </div>
       </section>
-
-      <footer>
-        <div class="footer-content">
-          <div class="footer-section">
-            <h4>Wizzer</h4>
-            <p>Conectando mascotas perdidas con sus dueños</p>
-          </div>
-          <div class="footer-section">
-            <h4>Enlaces</h4>
-            <a href="#">Sobre nosotros</a>
-            <a href="#">Contacto</a>
-            <a href="#">Términos y condiciones</a>
-          </div>
-        </div>
-      </footer>
     </main>
   `,
   styles: [`
@@ -94,58 +71,46 @@ import { PetCarouselComponent } from '../../components/pet-carousel/pet-carousel
     }
 
     .hero {
-      background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+      background: linear-gradient(rgba(30, 64, 175, 0.7), rgba(30, 64, 175, 0.7)),
+                  url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200') center/cover;
       color: white;
-      padding: 4rem 2rem;
+      padding: 6rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: inherit;
+      filter: blur(4px);
+      z-index: 0;
     }
 
     .hero-content {
+      position: relative;
+      z-index: 1;
       max-width: 800px;
       margin: 0 auto;
     }
 
-    h1 {
+    .hero h1 {
       font-size: 3rem;
+      font-weight: 700;
       margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .hero p {
       font-size: 1.25rem;
       margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .search-container {
-      display: flex;
-      gap: 1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    input {
-      flex: 1;
-      padding: 1rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    .search-button {
-      background: #60A5FA;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.3s;
-    }
-
-    .search-button:hover {
-      background: #3B82F6;
+      opacity: 0.95;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
 
     .recent-pets {
@@ -234,63 +199,20 @@ import { PetCarouselComponent } from '../../components/pet-carousel/pet-carousel
 
     @media (max-width: 768px) {
       .hero {
-        padding: 3rem 1rem;
+        padding: 4rem 1rem;
       }
 
-      h1 {
+      .hero h1 {
         font-size: 2rem;
       }
 
-      .search-container {
-        flex-direction: column;
-      }
-
-      .search-button {
-        width: 100%;
-        justify-content: center;
+      .hero p {
+        font-size: 1rem;
       }
 
       .steps {
         grid-template-columns: 1fr;
       }
-    }
-
-    footer {
-      background: #1E40AF;
-      color: white;
-      padding: 4rem 2rem;
-      margin-top: 4rem;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .footer-section h4 {
-      margin-bottom: 1rem;
-      color: #F8FAFC;
-      font-size: 1.25rem;
-    }
-
-    .footer-section p {
-      color: #E2E8F0;
-      margin-bottom: 1rem;
-    }
-
-    .footer-section a {
-      display: block;
-      color: #E2E8F0;
-      text-decoration: none;
-      margin-bottom: 0.5rem;
-      transition: color 0.3s;
-    }
-
-    .footer-section a:hover {
-      color: #F8FAFC;
     }
   `]
 })
@@ -361,4 +283,9 @@ export class HomeComponent {
       image: 'https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?w=500'
     }
   ];
+
+  onSearch(query: string) {
+    // TODO: Implementar búsqueda
+    console.log('Buscando:', query);
+  }
 } 
