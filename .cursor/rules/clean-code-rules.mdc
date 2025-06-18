@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+El proyecto se debe basar siempre en las reglas del clean code y los principios SOLID.
+Las caracteristicas de mejores practias de la ingenieria de software deben estar siempre en cada linea de codigo que se vaya a generar.
